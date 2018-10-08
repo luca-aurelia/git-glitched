@@ -48,7 +48,7 @@ app.post('/deploy', (request, response) => {
 
   console.log('Fetching latest changes.')
   let output = execSync(
-    `git checkout -- ./ && git pull ${repoUrl} glitch && refresh`
+    `git checkout -- ./ && git pull -X theirs ${repoUrl} glitch && refresh`
   ).toString()
   console.log(output)
   // console.log('Updating code base.')
@@ -62,4 +62,4 @@ const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 
-console.log('local 3:33 pm')
+console.log('local 3:38 pm')
