@@ -44,7 +44,7 @@ app.post('/deploy', (request, response) => {
   }
 
   const repoUrl = request.body.repository.git_url
-  addOrigin(request.body.repository.ssh_url)
+  // addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes.')
   let output = execSync(
