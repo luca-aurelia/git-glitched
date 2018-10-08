@@ -47,7 +47,13 @@ app.post('/deploy', (request, response) => {
   addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes.')
+<<<<<<< HEAD
   let output = execSync(`git checkout -- ./ && git pull ${repoUrl} glitch`).toString()
+=======
+  let output = execSync(
+    `git checkout -- ./ && git pull ${repoUrl} glitch && refresh`
+  ).toString()
+>>>>>>> e7519bad86f788d3e3dfc5dba768e0c6df6378e2
   console.log(output)
   // console.log('Updating code base.')
   // output = execSync(`git reset --hard origin/glitch`).toString()
@@ -60,4 +66,4 @@ const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 })
 
-console.log('local 3:30 pm')
+console.log('local 3:33 pm')
