@@ -11,11 +11,23 @@ app.get('/', (request, response) => {
   response.status(200).send('おかえり！🏡')
 })
 
-// Returns a string like https://username:password@github.com/user/repo
-const addCredentials = repoUrl => {
-  const [protocol, path] = repoUrl.split('://')
-  const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
-  return [protocol + '://', credentials + '@', path].join('')
+const addOrigin = repoUrl => {
+  try {
+    console.log('Trying to remove existing origin.')
+    const removeExistingOrigin = 'git remote rm origin'
+    execSync(removeExistingOrigin)
+  } catch (err) {
+    console.log(err)
+  }
+
+  console.log('Trying to add ' + repoUrl + ' as origin.')
+  // Exits with status code 2 if remote doesn't exist
+  const checkRemote = `git ls-remote --exit-code -h "${repoUrl}"`
+  // Adds origin
+  const addOrigin = `git remote add origin ${repoUrl}`
+
+  // Add origin if remote doesn't already exist
+  execSync(`${checkRemote} || ${addOrigin}`)
 }
 
 app.post('/deploy', (request, response) => {
@@ -31,14 +43,14 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const repoUrl = request.body.repository.url
-  const repoUrlWithCredentials = addCredentials(repoUrl)
+  const repoUrl = request.body.repository.git_url
+  addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes from ' + repoUrl)
-  let output = execSync(`git fetch ${repoUrlWithCredentials} glitch`).toString()
+  let output = execSync(`git fetch origin glitch`).toString()
   console.log(output)
   console.log('Updating code base.')
-  output = execSync(`git reset --hard ${repoUrl}/master`).toString()
+  output = execSync(`git reset --hard origin/master`).toString()
   console.log(output)
   response.status(200).send()
 })
@@ -47,5 +59,3 @@ app.post('/deploy', (request, response) => {
 const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
-
-console.log('3:09')
