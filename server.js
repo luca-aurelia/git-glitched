@@ -12,8 +12,8 @@ app.get('/', (request, response) => {
 })
 
 // Returns a string like https://username:password@github.com/user/repo
-const getRepoUrlWithCredentials = repoUrl => {
-  const [protocol, path] = process.env.repoUrl.split('://')
+const addCredentials = repoUrl => {
+  const [protocol, path] = repoUrl.split('://')
   const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
   return [protocol + '://', credentials + '@', path].join('')
 }
@@ -31,7 +31,7 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const origin = getRepoUrlWithCredentials(request.body.repository.url)
+  const origin = addCredentials(request.body.repository.url)
   console.log({ origin })
   const output = execSync(
     `git fetch ${origin} glitch; git reset --hard ${origin}/master`
