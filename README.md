@@ -1,27 +1,16 @@
-Welcome to Glitch
-=================
+Git Glitched
+============
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+Deploy to Glitch with a single `git push`.
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+Setup
+-----
 
-Find out more [about Glitch](https://glitch.com/about).
+1. Remix this project on Glitch.
+2. [Create a deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) for that repository
+- 
 
-
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Glitch](https://glitch.com/)
+Made by [Thomas Bailey](https://twitter.com/noise_machines)
 -------------------
 
 \ ゜o゜)ノ
