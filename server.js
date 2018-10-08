@@ -10,6 +10,22 @@ const bodyParser = require('body-parser')
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
+const includes = (string, substring) => string.indexOf(substring) > -1
+
+const { REPO_URL } = process.env
+
+const addOrigin = () => {
+  // Exits with status code 2 if remote doesn't exist
+  const checkRemote = `git ls-remote --exit-code -h "${REPO_URL}"`
+  // Adds origin
+  const addOrigin = `git remote add origin ${REPO_URL}`
+
+  // Add origin if remote doesn't already exist
+  execSync(`${checkRemote} || ${addOrigin}`)
+}
+
+addOrigin()
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(bodyParser.json())
 
@@ -30,7 +46,7 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const output = execSync('git pull origin glitch; refresh').toString()
+  const output = tryExecSync('git pull origin glitch').toString()
   console.log({ output })
   response.status(200).send()
 })
@@ -40,4 +56,4 @@ const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 
-console.log('updated 1:43 pm')
+console.log('updated 2:05 pm')
