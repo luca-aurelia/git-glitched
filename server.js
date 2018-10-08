@@ -46,7 +46,7 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const output = tryExecSync('git pull origin glitch').toString()
+  const output = execSync('git pull origin glitch').toString()
   console.log({ output })
   response.status(200).send()
 })
@@ -56,4 +56,4 @@ const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 
-console.log('updated 2:05 pm')
+console.log('updated 2:06 pm')
