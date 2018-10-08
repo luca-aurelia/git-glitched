@@ -11,12 +11,10 @@ const bodyParser = require('body-parser')
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'))
 app.use(bodyParser.json())
 
-// http://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
-  response.sendFile(__dirname + '/views/index.html')
+  response.status(200).send('おかえり！🏡')
 })
 
 app.post('/deploy', (request, response) => {
@@ -42,4 +40,4 @@ const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 
-console.log('Updated 1:29 pm.')
+console.log('updated 1:41 pm')
