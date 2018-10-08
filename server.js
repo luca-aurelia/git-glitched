@@ -2,12 +2,12 @@ const express = require('express')
 const app = express()
 const { execSync } = require('child_process')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 app.use(bodyParser.json())
-app.use(express.static('./'))
 
 app.get('/', (request, response) => {
-  response.sendFile('readme.md')
+  response.sendFile(path.join(__dirname, 'readme.md'))
 })
 
 app.post('/deploy', (request, response) => {
