@@ -12,9 +12,9 @@ app.get('/', (request, response) => {
 })
 
 const addOrigin = repoUrl => {
-  console.log('Trying to remove existing origin.')
-  const removeExistingOrigin = 'git remote rm origin'
-  execSync(removeExistingOrigin)
+  // console.log('Trying to remove existing origin.')
+  // const removeExistingOrigin = 'git remote rm origin'
+  // execSync(removeExistingOrigin)
 
   console.log('Trying to add ' + repoUrl + ' as origin.')
   // Exits with status code 2 if remote doesn't exist
