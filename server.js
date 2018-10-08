@@ -47,7 +47,7 @@ app.post('/deploy', (request, response) => {
   addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes.')
-  let output = execSync('git checkout -- ./ && git pull ${repoUrl} glitch').toString()
+  let output = execSync(`git checkout -- ./ && git pull ${repoUrl} glitch`).toString()
   console.log(output)
   // console.log('Updating code base.')
   // output = execSync(`git reset --hard origin/glitch`).toString()
