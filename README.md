@@ -1,27 +1,27 @@
-Welcome to Glitch
-=================
+Git Glitched
+============
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+Deploy to Glitch with a single `git push`.
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+Setup
+-----
 
-Find out more [about Glitch](https://glitch.com/about).
+- Fork the Git Glitched [GitHub repo](https://github.com/noise-machines/git-glitched).
+- Create a new Glitch project.
+- In the top left corner of Glitch, click {Your Project Name} ❯ Advanced Options 🗼 ❯ Import From GitHub.
+- Enter the name of your forked repository as the repo to import.
+- In the Glitch sidebar, click 🗝 .env. Set the `SECRET` environment variable. 
+- In the top left corner of Glitch, click {Your Project Name} ❯ Advanced Options 🗼 ❯ Open Console 📟.
+- [Generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#generating-a-new-ssh-key).
+- Copy your newly-generated public key from `~/.ssh/id_rsa.pub`.
+- [Set up that public key as a deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) for your forked GitHub repo.
+- In your forked repo, [set up a webhook](https://developer.github.com/webhooks/creating/) to POST to `{your-project-name}.glitch.me/deploy?secret={your-secret}`. Make sure `{your-secret}` matches the `SECRET` environment variable you set earlier in your Glitch project.
 
+Now when you push to the glitch branch of your repo, it will automatically get deployed to Glitch 🎉
 
-Your Project
-------------
+> ☠️ Be careful. This project only checks if the `secret` query param matches the `SECRET` environment variable. It will happily pull down any git repository, *including ones that don't belong to you*.
 
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Glitch](https://glitch.com/)
--------------------
+Made by [Thomas Bailey](https://twitter.com/noise_machines)
+-----------------------
 
 \ ゜o゜)ノ
