@@ -1,35 +1,22 @@
 // server.js
-// where your node app starts
 
-// init project
 const express = require('express')
 const app = express()
 const { execSync } = require('child_process')
 const bodyParser = require('body-parser')
 
-// we've started you off with Express,
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
-const includes = (string, substring) => string.indexOf(substring) > -1
-
-// const addOrigin = () => {
-//   const { REPO_URL } = process.env
-//   console.log('Attempting to add ' + REPO_URL + ' as origin.')
-//   // Exits with status code 2 if remote doesn't exist
-//   const checkRemote = `git ls-remote --exit-code -h "${REPO_URL}"`
-//   // Adds origin
-//   const addOrigin = `git remote add origin ${REPO_URL}`
-
-//   // Add origin if remote doesn't already exist
-//   execSync(`${checkRemote} || ${addOrigin}`)
-// }
-
-// http://expressjs.com/en/starter/static-files.html
 app.use(bodyParser.json())
 
 app.get('/', (request, response) => {
   response.status(200).send('おかえり！🏡')
 })
+
+// Returns a string like https://username:password@github.com/user/repo
+const getRepoUrlWithCredentials = () => {
+  const [protocol, path] = process.env.REPO_URL.split('://')
+  const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
+  return [protocol + '://', credentials + '@', path].join('')
+}
 
 app.post('/deploy', (request, response) => {
   if (request.query.secret !== process.env.SECRET) {
@@ -44,16 +31,9 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  // addOrigin()
-  const [protocol, path] = process.env.REPO_URL.split('://')
-  const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
-  const repoUrlWithCredentials = [
-    protocol + '://',
-    credentials + '@',
-    path
-  ].join('')
+  const origin = getRepoUrlWithCredentials()
   const output = execSync(
-    `git pull ${repoUrlWithCredentials} glitch`
+    `git fetch ${origin} glitch; git reset --hard ${origin}/master`
   ).toString()
   console.log({ output })
   response.status(200).send()
@@ -63,5 +43,3 @@ app.post('/deploy', (request, response) => {
 const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
-
-console.log('2:22 pm')
