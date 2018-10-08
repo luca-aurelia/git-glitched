@@ -48,7 +48,7 @@ app.post('/deploy', (request, response) => {
 
   console.log('Fetching latest changes.')
   let output = execSync(
-    'git checkout -- ./ && git pull ${repoUrl} glitch'
+    `git checkout -- ./ && git pull ${repoUrl} glitch`
   ).toString()
   console.log(output)
   // console.log('Updating code base.')
