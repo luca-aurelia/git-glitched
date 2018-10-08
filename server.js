@@ -14,13 +14,13 @@ app.get('/', (request, response) => {
 const addOrigin = repoUrl => {
   console.log('Attempting to add ' + repoUrl + ' as origin.')
   // Exits with status code 2 if remote doesn't exist
-  // const checkRemote = `git ls-remote --exit-code -h "${repoUrl}"`
+  const checkRemote = `git ls-remote --exit-code -h "${repoUrl}"`
   // Adds origin
   const addOrigin = `git remote set-url origin ${repoUrl}`
 
   // Add origin if remote doesn't already exist
-  // execSync(`${checkRemote} || ${addOrigin}`)
-  execSync(addOrigin)
+  execSync(`${checkRemote} || ${addOrigin}`)
+  // execSync(addOrigin)
 }
 
 // Returns a string like https://username:password@github.com/user/repo
