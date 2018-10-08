@@ -16,18 +16,10 @@ const addOrigin = repoUrl => {
   // Exits with status code 2 if remote doesn't exist
   const checkRemote = `git ls-remote --exit-code -h "${repoUrl}"`
   // Adds origin
-  const addOrigin = `git remote set-url origin ${repoUrl}`
+  const addOrigin = `git remote add origin ${repoUrl}`
 
   // Add origin if remote doesn't already exist
   execSync(`${checkRemote} || ${addOrigin}`)
-  // execSync(addOrigin)
-}
-
-// Returns a string like https://username:password@github.com/user/repo
-const addCredentials = repoUrl => {
-  const [protocol, path] = repoUrl.split('://')
-  const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
-  return [protocol + '://', credentials + '@', path].join('')
 }
 
 app.post('/deploy', (request, response) => {
@@ -45,10 +37,9 @@ app.post('/deploy', (request, response) => {
 
   const repoUrl = request.body.repository.url
   addOrigin(repoUrl)
-  const repoUrlWithCredentials = addCredentials(repoUrl)
 
   console.log('Fetching latest changes from ' + repoUrl)
-  let output = execSync(`git fetch ${repoUrlWithCredentials} glitch`).toString()
+  let output = execSync(`git fetch origin glitch`).toString()
   console.log(output)
   console.log('Updating code base.')
   output = execSync(`git reset --hard origin/master`).toString()
