@@ -44,16 +44,14 @@ app.post('/deploy', (request, response) => {
   }
 
   const repoUrl = request.body.repository.git_url
-  // addOrigin(request.body.repository.ssh_url)
+  addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes.')
-  let output = execSync(
-    `git checkout -- ./ && git pull ${repoUrl} glitch`
-  ).toString()
+  let output = execSync(`git fetch origin glitch`).toString()
   console.log(output)
-  // console.log('Updating code base.')
-  // output = execSync(`git reset --hard origin/glitch`).toString()
-  // console.log(output)
+  console.log('Updating code base.')
+  output = execSync(`git reset --hard origin/glitch`).toString()
+  console.log(output)
   response.status(200).send()
 })
 
@@ -61,3 +59,5 @@ app.post('/deploy', (request, response) => {
 const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
+
+console.log('3:29')
