@@ -31,12 +31,15 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const origin = addCredentials(request.body.repository.url)
-  console.log({ origin })
-  const output = execSync(
-    `git fetch ${origin} glitch; git reset --hard ${origin}/master`
-  ).toString()
-  console.log({ output })
+  const repoUrl = request.body.repository.url
+  const repoUrlWithCredentials = addCredentials(repoUrl)
+
+  console.log('Fetching latest changes from ' + repoUrl)
+  let output = execSync(`git fetch ${repoUrlWithCredentials} glitch`).toString()
+  console.log(output)
+  console.log('Updating code base.')
+  output = execSync(`git reset --hard ${repoUrl}/master`).toString()
+  console.log(output)
   response.status(200).send()
 })
 
