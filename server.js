@@ -40,7 +40,7 @@ app.post('/deploy', (request, response) => {
   }
 
   const repoUrl = request.body.repository.git_url
-  addOrigin(repoUrl)
+  addOrigin(request.body.repository.ssh_url)
 
   console.log('Fetching latest changes from ' + repoUrl)
   let output = execSync(`git fetch origin glitch`).toString()
