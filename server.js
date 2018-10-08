@@ -12,17 +12,17 @@ const bodyParser = require('body-parser')
 
 const includes = (string, substring) => string.indexOf(substring) > -1
 
-const { REPO_URL } = process.env
+// const addOrigin = () => {
+//   const { REPO_URL } = process.env
+//   console.log('Attempting to add ' + REPO_URL + ' as origin.')
+//   // Exits with status code 2 if remote doesn't exist
+//   const checkRemote = `git ls-remote --exit-code -h "${REPO_URL}"`
+//   // Adds origin
+//   const addOrigin = `git remote add origin ${REPO_URL}`
 
-const addOrigin = () => {
-  // Exits with status code 2 if remote doesn't exist
-  const checkRemote = `git ls-remote --exit-code -h "${REPO_URL}"`
-  // Adds origin
-  const addOrigin = `git remote add origin ${REPO_URL}`
-
-  // Add origin if remote doesn't already exist
-  execSync(`${checkRemote} || ${addOrigin}`)
-}
+//   // Add origin if remote doesn't already exist
+//   execSync(`${checkRemote} || ${addOrigin}`)
+// }
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(bodyParser.json())
@@ -44,8 +44,17 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  addOrigin()
-  const output = execSync('git pull origin glitch').toString()
+  // addOrigin()
+  const [protocol, path] = process.env.REPO_URL.split('://')
+  const credentials = process.env.USERNAME + ':' + process.env.PASSWORD
+  const repoUrlWithCredentials = [
+    protocol + '://',
+    credentials + '@',
+    path
+  ].join('')
+  const output = execSync(
+    `git pull ${repoUrlWithCredentials} glitch`
+  ).toString()
   console.log({ output })
   response.status(200).send()
 })
@@ -55,4 +64,4 @@ const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 
-console.log('updated 2:09 9 pm')
+console.log('2:22 pm')
