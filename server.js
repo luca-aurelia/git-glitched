@@ -4,9 +4,10 @@ const { execSync } = require('child_process')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
+app.use(express.static('./'))
 
 app.get('/', (request, response) => {
-  response.status(200).send('おかえり！🏡')
+  response.sendFile('readme.md')
 })
 
 app.post('/deploy', (request, response) => {
