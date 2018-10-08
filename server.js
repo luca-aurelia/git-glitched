@@ -25,17 +25,14 @@ app.post('/deploy', (request, response) => {
   const repoUrl = request.body.repository.git_url
 
   console.log('Fetching latest changes.')
-  response.status(200).send()
-
   const output = execSync(
     `git checkout -- ./ && git pull -X theirs ${repoUrl} glitch && refresh`
   ).toString()
   console.log(output)
+  response.status(200).send()
 })
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 })
-
-console.log('3:45')
