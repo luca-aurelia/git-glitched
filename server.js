@@ -35,7 +35,7 @@ app.post('/deploy', (request, response) => {
     return
   }
 
-  const repoUrl = request.body.repository.url
+  const repoUrl = request.body.repository.git_url
   addOrigin(repoUrl)
 
   console.log('Fetching latest changes from ' + repoUrl)
