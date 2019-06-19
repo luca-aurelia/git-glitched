@@ -22,11 +22,11 @@ Setup
 - In your forked repo, [set up a webhook](https://developer.github.com/webhooks/creating/) to POST to `{your-project-name}.glitch.me/deploy?secret={your-secret}`.
   - The Payload URL should be `{your-project-name}.glitch.me/deploy?secret={your-secret}`.
   - Make sure `{your-secret}` matches the `SECRET` environment variable you set earlier in your Glitch project.
-  - Change the Content type to `application/json`.
+  - Change the `Content type` to `application/json`.
   - You don't need to set the `Secret` field. That's a different, unrelated secret.
 - [Clone your forked repo](https://help.github.com/en/articles/cloning-a-repository) to your computer.
-- Change into the directory for the local copy of your repo that you just cloned.
-- Create a branch called `glitch`.
+- Change into the local copy of your repo that you just cloned.
+- [Create a git branch](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) called `glitch`.
 
 Now when you push to the glitch branch of your repo, it will automatically get deployed to Glitch 🎉
 
