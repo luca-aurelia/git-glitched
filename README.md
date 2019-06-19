@@ -17,10 +17,16 @@ Setup
 - Open the Glitch console. As I'm writing this, you can do that by clicking `Tools` in the bottom left corner of Glitch, then clicking `Full Page Console →`.
 - In the console that opens, [generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#generating-a-new-ssh-key).
 - When you're generating your SSH key, you'll be asked where you want to save it. You can go with the default location, but remember the file it's saved to. If you're not sure where it saved, it's probably in `~/.ssh/id_rsa.pub` or `/app/.ssh/id_rsa.pub`.
-- Use the `cat` command to print out your newly-generated public key, then copy it. You'll need it for the next step.
-- Copy your newly-generated public key from `~/.ssh/id_rsa.pub`.
+- Use the [`cat` command](https://www.interserver.net/tips/kb/linux-cat-command-usage-examples/) to print out your newly-generated public key, then copy it. You'll need it for the next step.
 - [Set up that public key as a deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) for your forked GitHub repo.
-- In your forked repo, [set up a webhook](https://developer.github.com/webhooks/creating/) to POST to `{your-project-name}.glitch.me/deploy?secret={your-secret}`. Make sure `{your-secret}` matches the `SECRET` environment variable you set earlier in your Glitch project.
+- In your forked repo, [set up a webhook](https://developer.github.com/webhooks/creating/) to POST to `{your-project-name}.glitch.me/deploy?secret={your-secret}`.
+  - The Payload URL should be `{your-project-name}.glitch.me/deploy?secret={your-secret}`.
+  - Make sure `{your-secret}` matches the `SECRET` environment variable you set earlier in your Glitch project.
+  - Change the Content type to `application/json`.
+  - You don't need to set the `Secret` field. That's a different, unrelated secret.
+- [Clone your forked repo](https://help.github.com/en/articles/cloning-a-repository) to your computer.
+- Change into the directory for the local copy of your repo that you just cloned.
+- Create a branch called `glitch`.
 
 Now when you push to the glitch branch of your repo, it will automatically get deployed to Glitch 🎉
 
