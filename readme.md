@@ -7,9 +7,13 @@ Setup
 -----
 
 - Fork the Git Glitched [GitHub repo](https://github.com/noise-machines/git-glitched).
-- Create a new Glitch project.
-- In the top left corner of Glitch, click {Your Project Name} ❯ Advanced Options 🗼 ❯ Import From GitHub.
-- Enter the name of your forked repository as the repo to import.
+- Copy the URL of your forked repo. You'll need it in a second.
+- Create a new Glitch project based on your forked repo:
+  - In the top left corner of Glitch, click your project name.
+  - Click New Project ✨.
+  - Click Clone from Git Repo.
+  - When Glitch asks what Git repo you want to clone from, enter the URL of your forked repo. (That's the one you copied a second ago.)
+- Create 
 - In the Glitch sidebar, click 🗝 .env. Set the `SECRET` environment variable. 
 - In the top left corner of Glitch, click {Your Project Name} ❯ Advanced Options 🗼 ❯ Open Console 📟.
 - [Generate a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#generating-a-new-ssh-key).
